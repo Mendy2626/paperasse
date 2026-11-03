@@ -73,8 +73,6 @@ Voir [l'installation manuelle](docs/manual-install.md) pour les commandes Codex 
 | **`controleur-fiscal`** | Contrôleur Fiscal | Simulation de contrôle DGFIP sur 8 axes, chefs de redressement avec base légale et montants |
 | **`commissaire-aux-comptes`** | Commissaire aux Comptes | Audit NEP en 7 phases, validation croisée bilan/CR/liasse, opinion motivée |
 | **`fiscaliste`** | Fiscaliste Particuliers | Fiscalité personnelle : IR (barème, QF, décote, plafonnement), IFI, PFU vs barème, PEA, assurance-vie, LMNP (micro/réel), RSU/BSPCE/stock-options, crypto (PAMC), PER, quotient revenus exceptionnels, CEHR |
-| **`notaire`** | Notaire | Frais de notaire, plus-value immobilière, successions, donations, SCI, PACS, diagnostics, conseil patrimonial |
-| **`syndic`** | Syndic de Copropriété | Gestion d'un parc de copropriétés : AG, appels de fonds, comptabilité (décret 2005), travaux, fournisseurs, impayés, transition de syndic |
 
 ---
 
@@ -88,14 +86,6 @@ Voir [l'installation manuelle](docs/manual-install.md) pour les commandes Codex 
 > Simule un contrôle fiscal sur mes comptes 2025.
 
 > Audite mes comptes annuels avant approbation.
-
-> Calcule les frais de notaire pour un appartement à 350 000 EUR à Paris.
-
-> Ma mère est décédée, nous sommes 3 enfants. Calcule les droits de succession.
-
-> Rédige les statuts d'une SCI familiale pour gérer un immeuble locatif.
-
-> Prépare la convocation de l'AG annuelle pour ma copropriété.
 
 > Donne-moi un tableau de bord de toutes mes copropriétés.
 
@@ -206,7 +196,7 @@ Claude Desktop et claude.ai supportent les skills via upload :
 1. Activer la capacité : Réglages → Capabilities → activer **Code execution and file creation** (sans ça, l'upload échoue).
 2. Puis : Customize → Skills → uploader un `.zip` dont le dossier racine contient un `SKILL.md`.
 
-**Limite importante** : certains skills partagent des ressources via des liens symboliques : comptable (`data/`, `scripts/`, `templates/`, `integrations/`), controleur-fiscal et commissaire-aux-comptes (`data/`), notaire (`scripts/`). Un zip d'un seul dossier de skill casse ces liens et le skill ne trouve plus ses ressources. Pour ces skills, préférer [agentskill.sh](https://agentskill.sh) ou un clone Git complet utilisé avec Claude Code. Les skills autonomes (fiscaliste, syndic) s'uploadent sans problème.
+**Limite importante** : certains skills partagent des ressources via des liens symboliques : comptable (`data/`, `scripts/`, `templates/`, `integrations/`), controleur-fiscal et commissaire-aux-comptes (`data/`). Un zip d'un seul dossier de skill casse ces liens et le skill ne trouve plus ses ressources. Pour ces skills, préférer [agentskill.sh](https://agentskill.sh) ou un clone Git complet utilisé avec Claude Code. Les skills autonomes (fiscaliste) s'uploadent sans problème.
 
 ---
 
@@ -219,7 +209,7 @@ Chaque skill est évalué automatiquement avec et sans le SKILL.md pour mesurer 
 uv run --project evals python evals/run_evals.py
 
 # Un seul skill
-uv run --project evals python evals/run_evals.py --skill notaire
+uv run --project evals python evals/run_evals.py --skill comptable
 
 # Réutiliser le cache inter-itérations
 uv run --project evals python evals/run_evals.py --reuse-cache
@@ -238,12 +228,9 @@ Pour les PRs, un workflow GitHub Actions `Evals Smoke` résout les skills impact
 | Skill | With Skill | Without Skill | Delta |
 |-------|-----------|--------------|-------|
 | commissaire-aux-comptes | 100% | 75% | **+25%** |
-| notaire | 96% | 92% | +4% |
 | controleur-fiscal | 91% | 87% | +4% |
 | comptable | 89% | 77% | **+12%** |
 | fiscaliste | 84% | 64% | **+20%** |
-| syndic | 83% | 68% | **+16%** |
-| **Aggregate** | **88%** | **75%** | **+13%** |
 
 Le format `evals.json` est compatible avec le [framework officiel anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/skill-creator).
 

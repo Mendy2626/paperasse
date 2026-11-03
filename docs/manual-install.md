@@ -22,7 +22,7 @@ Depuis la racine du repo Paperasse cloné :
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R comptable controleur-fiscal commissaire-aux-comptes fiscaliste notaire syndic ~/.codex/skills/
+cp -R comptable controleur-fiscal commissaire-aux-comptes fiscaliste ~/.codex/skills/
 cp -R data scripts templates integrations company.example.json ~/.codex/skills/
 ```
 

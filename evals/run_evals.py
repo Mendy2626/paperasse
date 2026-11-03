@@ -12,7 +12,7 @@ Optimized for contributor workflows:
 
 Usage:
   uv run --project evals python evals/run_evals.py
-  uv run --project evals python evals/run_evals.py --skill notaire
+  uv run --project evals python evals/run_evals.py --skill comptable
   uv run --project evals python evals/run_evals.py --changed-only --reuse-cache
   uv run --project evals python evals/run_evals.py --grade-only --reuse-cache
   uv run --project evals python evals/run_evals.py --plan-only --selection-json eval-plan.json
@@ -161,9 +161,7 @@ def get_iteration_id() -> tuple[str, bool]:
         skill_dirs = [
             "commissaire-aux-comptes/",
             "controleur-fiscal/",
-            "notaire/",
             "comptable/",
-            "syndic/",
             "fiscaliste/",
         ]
         unstaged = _run_git("diff", "--name-only", "--", *skill_dirs).stdout.strip()
